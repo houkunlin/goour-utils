@@ -7,7 +7,7 @@ import cn.goour.utils.security.IEncryptNoKey;
 public class MD5Impl implements IEncryptNoKey
 {
 	private static MD5Impl instance=null;
-	public synchronized static MD5Impl getInstance(){
+	public static synchronized MD5Impl getInstance(){
 		if (instance == null) {
 			synchronized (MD5Impl.class) {
 				if (instance == null) {

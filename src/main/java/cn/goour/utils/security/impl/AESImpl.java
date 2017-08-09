@@ -9,7 +9,7 @@ import cn.goour.utils.security.IEncryptHaveKey;
 public class AESImpl implements IEncryptHaveKey
 {
 	private static AESImpl instance=null;
-	public static AESImpl getInstance(){
+	public static synchronized AESImpl getInstance(){
 		if (instance == null) {
 			synchronized (AESImpl.class) {
 				if (instance == null) {
