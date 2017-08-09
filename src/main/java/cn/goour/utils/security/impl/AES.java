@@ -13,9 +13,13 @@ public class AES extends AEncrypt {
 	private byte[] defaultKey = "Java Very Great!".getBytes();//AES加密的密钥必须是16位
 	private static AEncrypt instance = null;
 
-	public static AEncrypt getInstance() {
+	public static synchronized AEncrypt getInstance() {
 		if (instance == null) {
-			instance = new AES();
+			synchronized (AES.class) {
+				if (instance == null) {
+					instance = new AES();
+				}
+			}
 		}
 		return instance;
 	}

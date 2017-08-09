@@ -6,9 +6,13 @@ public class Base64 implements IEncryptNoKey {
     private static Base64 instance = null;
 
     public synchronized static Base64 getInstance() {
-        if (instance == null) {
-            instance = new Base64();
-        }
+    	if (instance == null) {
+			synchronized (Base64.class) {
+				if (instance == null) {
+					instance = new Base64();
+				}
+			}
+		}
         return instance;
     }
 

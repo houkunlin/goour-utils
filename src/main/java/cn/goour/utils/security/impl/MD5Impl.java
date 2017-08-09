@@ -8,8 +8,12 @@ public class MD5Impl implements IEncryptNoKey
 {
 	private static MD5Impl instance=null;
 	public synchronized static MD5Impl getInstance(){
-		if(instance == null){
-			instance = new MD5Impl();
+		if (instance == null) {
+			synchronized (MD5Impl.class) {
+				if (instance == null) {
+					instance = new MD5Impl();
+				}
+			}
 		}
 		return instance;
 	}

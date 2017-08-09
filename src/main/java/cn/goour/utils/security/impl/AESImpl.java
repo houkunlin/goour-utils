@@ -10,8 +10,12 @@ public class AESImpl implements IEncryptHaveKey
 {
 	private static AESImpl instance=null;
 	public static AESImpl getInstance(){
-		if(instance == null){
-			instance = new AESImpl();
+		if (instance == null) {
+			synchronized (AESImpl.class) {
+				if (instance == null) {
+					instance = new AESImpl();
+				}
+			}
 		}
 		return instance;
 	}
