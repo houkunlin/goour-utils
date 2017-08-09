@@ -13,21 +13,33 @@ public class IO {
 	public static byte[] read(InputStream in) throws IOException {
 		ByteArrayOutputStream result = new ByteArrayOutputStream(1024);
 		byte[] buff = new byte[1024];
+		byte[] bytes = null;
 		int len = 0;
-		while ((len = in.read(buff)) != -1) {// 在这里会产生阻塞
-			result.write(buff, 0, len);
-			// System.out.println("IO_While_in:"+in.available());
-			// System.out.println("IO_While_re:"+result.size());
-			// logger.info("IO_While_in:"+in.available());
-			// logger.info("IO_While_re:"+result.size());
-			// if (result.size() >= in.available()) {
-			// break;
-			// }
-		}
 		// System.out.println("IO_end:"+result.size());
-		// logger.info("IO_end:"+result.size());
-		byte[] bytes = result.toByteArray();
-		result.close();
+				// logger.info("IO_end:"+result.size());
+		try {
+			while ((len = in.read(buff)) != -1) {// 在这里会产生阻塞
+				result.write(buff, 0, len);
+				// System.out.println("IO_While_in:"+in.available());
+				// System.out.println("IO_While_re:"+result.size());
+				// logger.info("IO_While_in:"+in.available());
+				// logger.info("IO_While_re:"+result.size());
+				// if (result.size() >= in.available()) {
+				// break;
+				// }
+			}
+			bytes = result.toByteArray();
+			result.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				result.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		return bytes;
 	}
 }
