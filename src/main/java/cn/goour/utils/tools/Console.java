@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Console {
-	public static void printAll(Object... objs) {
+	public static StringBuilder printAll(Object... objs) {
 		StringBuilder sb = new StringBuilder();
 		Thread currThread = Thread.currentThread();
 		StackTraceElement[] stackElm = currThread.getStackTrace();
@@ -19,9 +19,10 @@ public class Console {
 		}
 		sb.append(getObjectString(left, objs));
 		System.out.println(sb);
+		return sb;
 	}
 
-	public static void printNow(Object... objs) {
+	public static StringBuilder printNow(Object... objs) {
 		StringBuilder sb = new StringBuilder();
 		Thread currThread = Thread.currentThread();
 		StackTraceElement[] stackElm = currThread.getStackTrace();
@@ -39,8 +40,9 @@ public class Console {
 		sb.append(getStackTraceString(left, stack));
 		sb.append(getObjectString(left, objs));
 		System.out.println(sb);
+		return sb;
 	}
-	public static void printInfo(Object objs) {
+	public static StringBuilder printInfo(Object objs) {
 		StringBuilder sb = new StringBuilder();
 		Thread currThread = Thread.currentThread();
 		StackTraceElement[] stackElm = currThread.getStackTrace();
@@ -62,6 +64,7 @@ public class Console {
 		sb.append(stack.getLineNumber());
 		sb.append("/-"+objs);
 		System.out.println(sb);
+		return sb;
 	}
 	private static String getTimeString(){
 		StringBuilder sb = new StringBuilder();
