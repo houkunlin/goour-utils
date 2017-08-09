@@ -3,28 +3,32 @@ package cn.goour.utils.http;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.IdentityHashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
+import cn.goour.utils.tools.GoourLinkMap;
+
 public class Params {
-	private IdentityHashMap<String, Object> formData = new IdentityHashMap<String, Object>();
-	private IdentityHashMap<String, File> fileData = new IdentityHashMap<String, File>();
+	private Map<String, Object> formData = new GoourLinkMap<String, Object>();
+	private Map<String, File> fileData = new GoourLinkMap<String, File>();
 	public Params() {
+		
 	}
-	public void add(String key, Object...value){
-		System.out.println("add(String key, Object value)");
-		for (Object object : value) {
-			formData.put(new String(key), object);
+	public void add(String key, Object...objs){
+		if (objs == null) {
+			return ;
+		}
+		for (Object object : objs) {
+			formData.put(key, object);
 		}
 		
 	}
 	public void add(String key, File...files){
-		System.out.println("add(String key, File[] files)");
 		if (files == null) {
 			return ;
 		}
 		for (File file : files) {
-			fileData.put(new String(key), file);
+			fileData.put(key, file);
 		}
 	}
 	public void remove(String key){
@@ -61,6 +65,12 @@ public class Params {
 	public boolean isFileDataEmpty(){
 		return fileData.isEmpty();
 	}
+	public Map<String, Object> getFormData() {
+		return formData;
+	}
+	public Map<String, File> getFileData() {
+		return fileData;
+	}
 	public String getFromDataString(){
 		StringBuffer sBuffer = new StringBuffer();
 		for(Entry<String, Object> item:formData.entrySet()){
@@ -73,53 +83,26 @@ public class Params {
 			}
 			sBuffer.append("&");
 		}
-		
+		int len = sBuffer.length();
+		if (len > 0) {
+			sBuffer.delete(len-1, len);
+		}
 		return sBuffer.toString();
 	}
 
-	public IdentityHashMap<String, Object> getFormData() {
-		return formData;
-	}
-	public IdentityHashMap<String, File> getFileData() {
-		return fileData;
-	}
 	public static void main(String[] args) {
 		Params params = new Params();
-		params.add("a");
-		params.add("a[]", "1",2,3,"1");
+		params.add("a[]");
+		params.add("a[]", 1,2,3,4);
 		params.add("b", "1");
-		params.add("c", new File("").listFiles());
+		params.add("b", "1");
+		params.add("c", "1");
+		params.add("d", "1");
+		params.add("c", new File("/").listFiles());
 		params.add("c", new File(""));
 		params.add("c", new File(""));
 		System.out.println(params.getFromDataString());
-		System.out.println(params.fileData);
 		
 		
-		
-		
-//		IdentityHashMap<String,Object> map =new IdentityHashMap<String,Object>();
-//		System.out.println(new String("xx").equals("xx"));
-//		map.put(new String("xx"),"first");
-//		map.put(new String("xx"),"second");
-//		map.put(new String("xx"),"second3");
-//		map.put(new String("xx1"),"1");
-//		map.put(new String("xx1"),"2");
-//		map.put(new String("xx1"),"2");
-//		System.out.println("------------------");
-//		System.out.println(map.size());
-//		for (Entry<String, Object> entry : map.entrySet()) {
-//			System.out.print(entry.getKey() +"    ");
-//			System.out.println(entry.getValue());
-//		}
-//		System.out.println("idenMap="+map.containsKey("xx"));
-//		System.out.println("idenMap="+map.get("xx"));
-//		
-//		System.out.println("------------------");
-//		map.remove(new String("xx"));
-//		System.out.println(map.size());
-//		for (Entry<String, Object> entry : map.entrySet()) {
-//			System.out.print(entry.getKey() +"    ");
-//			System.out.println(entry.getValue());
-//		}
 	}
 }
