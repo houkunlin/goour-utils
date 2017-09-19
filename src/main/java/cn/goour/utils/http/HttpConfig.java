@@ -170,8 +170,9 @@ public class HttpConfig implements Serializable {
 	 * @param url
 	 *            要设置的 url
 	 */
-	public void setUrl(String url) {
+	public HttpConfig setUrl(String url) {
 		this.url = url;
+		return this;
 	}
 
 	/**
@@ -187,8 +188,9 @@ public class HttpConfig implements Serializable {
 	 * @param referer
 	 *            要设置的 referer
 	 */
-	public void setReferer(String referer) {
+	public HttpConfig setReferer(String referer) {
 		sendHeader.put("Referer", referer);
+		return this;
 	}
 
 	/**
@@ -204,8 +206,9 @@ public class HttpConfig implements Serializable {
 	 * @param userAgent
 	 *            要设置的 userAgent
 	 */
-	public void setUserAgent(String userAgent) {
+	public HttpConfig setUserAgent(String userAgent) {
 		sendHeader.put("User-Agent", userAgent);
+		return this;
 	}
 
 	/**
@@ -214,8 +217,9 @@ public class HttpConfig implements Serializable {
 	 * @param key
 	 * @param value
 	 */
-	public void setHeader(String key, String value) {
+	public HttpConfig setHeader(String key, String value) {
 		sendHeader.put(key.toLowerCase(), value);
+		return this;
 	}
 
 	public String getHeader(String key) {
@@ -233,16 +237,18 @@ public class HttpConfig implements Serializable {
 		return connectTimeout;
 	}
 
-	public void setConnectTimeout(int connectTimeout) {
+	public HttpConfig setConnectTimeout(int connectTimeout) {
 		this.connectTimeout = connectTimeout;
+		return this;
 	}
 
 	public int getReadTimeout() {
 		return readTimeout;
 	}
 
-	public void setReadTimeout(int readTimeout) {
+	public HttpConfig setReadTimeout(int readTimeout) {
 		this.readTimeout = readTimeout;
+		return this;
 	}
 
 	public Params getParams() {
@@ -254,8 +260,9 @@ public class HttpConfig implements Serializable {
 	 * 
 	 * @param params
 	 */
-	public void setParams(Params params) {
+	public HttpConfig setParams(Params params) {
 		this.params = params;
+		return this;
 	}
 
 	/**
@@ -263,12 +270,13 @@ public class HttpConfig implements Serializable {
 	 * 
 	 * @param isAjax
 	 */
-	public void setAjax(boolean isAjax) {
+	public HttpConfig setAjax(boolean isAjax) {
 		if (isAjax) {
 			sendHeader.put("X-Requested-With", "XMLHttpRequest");
 		} else {
 			sendHeader.remove("X-Requested-With");
 		}
+		return this;
 	}
 
 	public boolean isAjax() {
@@ -279,20 +287,23 @@ public class HttpConfig implements Serializable {
 		return false;
 	}
 
-	public void setGzip(boolean isGzip) {
+	public HttpConfig setGzip(boolean isGzip) {
 		if (isGzip) {
 			sendHeader.put("Accept-Encoding", "gzip, deflate, br");
 		} else {
 			sendHeader.remove("Accept-Encoding");
 		}
+		return this;
 	}
 
-	public void setAcceptDefault() {
+	public HttpConfig setAcceptDefault() {
 		sendHeader.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		return this;
 	}
 
-	public void setAcceptJson() {
+	public HttpConfig setAcceptJson() {
 		sendHeader.put("Accept", "application/json, text/javascript, */*; q=0.01");
+		return this;
 	}
 
 	/**
@@ -357,8 +368,9 @@ public class HttpConfig implements Serializable {
 		return proxy;
 	}
 
-	public void setProxy(boolean proxy) {
+	public HttpConfig setProxy(boolean proxy) {
 		this.proxy = proxy;
+		return this;
 	}
 
 	public String getProxyHost() {
@@ -372,15 +384,17 @@ public class HttpConfig implements Serializable {
 	 * 
 	 * @param proxyHost
 	 */
-	public void setProxyHost(String proxyHost) {
+	public HttpConfig setProxyHost(String proxyHost) {
 		this.proxyHost = proxyHost;
+		return this;
 	}
 
 	public int getProxyPort() {
 		return proxyPort;
 	}
 
-	public void setProxyPort(int proxyPort) {
+	public HttpConfig setProxyPort(int proxyPort) {
 		this.proxyPort = proxyPort;
+		return this;
 	}
 }

@@ -14,22 +14,23 @@ public class Params {
 	public Params() {
 		
 	}
-	public void add(String key, Object...objs){
+	public Params add(String key, Object...objs){
 		if (objs == null) {
-			return ;
+			return this;
 		}
 		for (Object object : objs) {
 			formData.put(key, object);
 		}
-		
+		return this;
 	}
-	public void add(String key, File...files){
+	public Params add(String key, File...files){
 		if (files == null) {
-			return ;
+			return this;
 		}
 		for (File file : files) {
 			fileData.put(key, file);
 		}
+		return this;
 	}
 	public void remove(String key){
 		removeForm(key);
